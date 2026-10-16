@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Studies & Work — VeriTract.site</title>
+  <meta name="description" content="Explore proven case studies in AI automation, RAG customer support, and autonomous operations engineered by VeriTract.site.">
+  <link rel="canonical" href="https://veritract.site/work">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+  <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VeriTract">
+  <meta property="og:url" content="https://veritract.site/work">
+  <meta property="og:title" content="Case Studies & Work — VeriTract.site">
+  <meta property="og:description" content="Explore proven case studies in AI automation, RAG customer support, and autonomous operations engineered by VeriTract.site.">
+  <meta property="og:image" content="https://veritract.site/assets/images/og-image.jpg">
+  <meta property="og:image:secure_url" content="https://veritract.site/assets/images/og-image.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="VeriTract.site — AI Automation Architecture & Autonomous Operations">
+
+  <!-- Twitter / X Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@veritract">
+  <meta name="twitter:url" content="https://veritract.site/work">
+  <meta name="twitter:title" content="Case Studies & Work — VeriTract.site">
+  <meta name="twitter:description" content="Explore proven case studies in AI automation, RAG customer support, and autonomous operations engineered by VeriTract.site.">
+  <meta name="twitter:image" content="https://veritract.site/assets/images/og-image.jpg">
+  <meta name="twitter:image:alt" content="VeriTract.site — AI Automation Architecture & Autonomous Operations">
+  
+  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    /* Force sticky stack animation on work page */
+    .page-work .case-grid {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      gap: 55vh !important;
+      padding-bottom: 40vh !important;
+      max-width: 720px !important;
+      margin: 0 auto !important;
+    }
+    .page-work .case-card {
+      width: 100% !important;
+      position: sticky !important;
+      border-radius: 24px !important;
+      padding: 44px !important;
+      border: 1px solid rgba(0,0,0,0.06) !important;
+      box-shadow: 0 -8px 30px rgba(0,0,0,0.15), 0 30px 60px -12px rgba(0,0,0,0.18) !important;
+      transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.5s cubic-bezier(0.19, 1, 0.22, 1), background 0.5s cubic-bezier(0.19, 1, 0.22, 1), border-color 0.4s ease !important;
+      background: transparent !important;
+    }
+    .page-work .case-card:nth-child(odd) {
+      transform: rotate(-1.5deg) !important;
+      background: linear-gradient(145deg, #F5F0E8 0%, #EDE8DF 100%) !important;
+    }
+    .page-work .case-card:nth-child(even) {
+      transform: rotate(1.5deg) !important;
+      background: linear-gradient(145deg, #1A1A1A 0%, #111 100%) !important;
+      border-color: rgba(255,255,255,0.08) !important;
+      box-shadow: 0 -8px 30px rgba(0,0,0,0.5), 0 30px 60px -12px rgba(0,0,0,0.4) !important;
+    }
+    .page-work .case-card:nth-child(1) { top: 100px !important; z-index: 1 !important; }
+    .page-work .case-card:nth-child(2) { top: 124px !important; z-index: 2 !important; }
+    .page-work .case-card:nth-child(3) { top: 148px !important; z-index: 3 !important; }
+    .page-work .case-card:nth-child(4) { top: 172px !important; z-index: 4 !important; }
+    .page-work .case-card:nth-child(5) { top: 196px !important; z-index: 5 !important; }
+    
+    .page-work .case-card:hover {
+      transform: rotate(0deg) translateY(-12px) !important;
+      background: linear-gradient(145deg, #FF7B00 0%, #D14D00 100%) !important;
+      border-color: rgba(255,255,255,0.2) !important;
+      box-shadow: 0 20px 60px -8px rgba(255,102,0,0.35), 0 40px 80px -16px rgba(0,0,0,0.3) !important;
+    }
+    
+    .page-work .case-card h3 {
+      font-family: var(--font-display) !important; font-size: 22px !important; font-weight: 700 !important;
+      color: #1A1A1A !important; margin: 0 0 10px !important; line-height: 1.35 !important;
+    }
+    .page-work .case-card p {
+      color: rgba(26,26,26,0.7) !important; font-size: 15px !important; line-height: 1.65 !important;
+    }
+    .page-work .case-card:nth-child(even) h3 { color: #fff !important; }
+    .page-work .case-card:nth-child(even) p { color: rgba(255,255,255,0.75) !important; }
+    .page-work .case-card:hover h3 { color: #fff !important; }
+    .page-work .case-card:hover p { color: rgba(255,255,255,0.9) !important; }
+    
+    .page-work .case-card::after {
+      content: '' !important;
+      position: absolute !important;
+      left: 0 !important; top: 24px !important; bottom: 24px !important;
+      width: 3px !important;
+      border-radius: 3px !important;
+      background: var(--accent) !important;
+      opacity: 0 !important;
+      transition: opacity 0.4s ease, background 0.4s ease !important;
+      display: block !important;
+    }
+    .page-work .case-card:hover::after {
+      opacity: 1 !important;
+      background: rgba(255,255,255,0.6) !important;
+    }
+    
+    .page-work .case-card-img {
+      margin-bottom: 24px !important;
+      border-radius: 16px !important;
+      overflow: hidden !important;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.12) !important;
+      aspect-ratio: auto !important;
+      background: none !important;
+    }
+    .page-work .case-card-img img {
+      width: 100% !important; height: auto !important; display: block !important;
+      filter: none !important;
+    }
+    .page-work .case-card:hover .case-card-img img {
+      transform: scale(1.02) !important;
+    }
+    
+    .page-work .case-tag {
+      font-family: var(--font-mono) !important; font-size: 10px !important; letter-spacing: 0.14em !important;
+      text-transform: uppercase !important; color: #1A1A1A !important;
+      background: rgba(0,0,0,0.06) !important; padding: 5px 10px !important;
+      border-radius: 6px !important; display: inline-block !important; margin-bottom: 10px !important;
+      border: 1px solid rgba(0,0,0,0.08) !important;
+    }
+    .page-work .case-card:nth-child(even) .case-tag {
+      color: var(--accent-pale) !important;
+      background: rgba(255,102,0,0.12) !important;
+      border-color: rgba(255,102,0,0.2) !important;
+    }
+    .page-work .case-card:hover .case-tag {
+      color: #fff !important;
+      background: rgba(255,255,255,0.15) !important;
+      border-color: rgba(255,255,255,0.2) !important;
+    }
+    
+    @media (max-width: 719px) {
+      .page-work .case-grid { gap: 45vh !important; padding-bottom: 30vh !important; }
+      .page-work .case-card { padding: 32px 24px !important; border-radius: 18px !important; }
+      .page-work .case-card:nth-child(1) { top: 80px !important; }
+      .page-work .case-card:nth-child(2) { top: 100px !important; }
+      .page-work .case-card:nth-child(3) { top: 120px !important; }
+      .page-work .case-card:nth-child(4) { top: 140px !important; }
+      .page-work .case-card:nth-child(5) { top: 160px !important; }
+    }
+  </style>
+</head>
+<body class="page-work solid">
+  <!-- Preloader -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-content">
+      <img src="/logo-vector-orange.svg" alt="VeriTract Logo" style="width: 250px; height: auto; animation: preloader-pulse 1.5s infinite alternate;">
+    </div>
+  </div>
+
+      <header class="site-nav solid" id="siteNav">
+    <div class="wrap nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="/logo-vector-white.svg" alt="VeriTract Logo" class="brand-img">
+        <span class="brand-text">veritract.site</span>
+      </a>
+  
+      <nav class="nav-links" id="navLinks">
+        <a href="/services.html">Services</a>
+        <a href="/work.html" class="active">Work</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="btn-header">Get in touch <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+      </nav>
+  
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <section class="work-index">
+    <div class="wrap">
+      
+      <div style="margin-bottom: 56px;">
+        <p class="eyebrow reveal">SELECTED WORK</p>
+        <h1 class="reveal reveal-d1" style="font-family: var(--font-display); font-size: clamp(32px, 5vw, 56px); font-weight: 700; color: #fff;">Systems we've shipped.</h1>
+      </div>
+
+      <div class="filter-row reveal reveal-d2" role="group" aria-label="Filter case studies by service">
+        <button class="filter-pill active" data-filter="all">All</button>
+        <button class="filter-pill" data-filter="automation-architecture">Automation Architecture</button>
+        <button class="filter-pill" data-filter="intelligent-systems">Intelligent Systems</button>
+        <button class="filter-pill" data-filter="autonomous-operations">Autonomous Operations</button>
+      </div>
+
+      <div class="case-grid">
+        <div class="case-card reveal reveal-d3" data-service="automation-architecture" data-case="value-stock">
+          <div class="case-card-img"><img src="assets/cases/valuestock.webp" alt="Value Stock and Commodities"></div>
+          <div class="case-card-text">
+            <span class="case-tag">CASE STUDY</span>
+            <h3>Value Stock and Commodities (Pvt.) Ltd.</h3>
+            <p>Automated >75% of customer inquiries with a humanized RAG AI assistant grounded in business knowledge.</p>
+          </div>
+        </div>
+        <div class="case-card reveal reveal-d3" data-service="intelligent-systems" data-case="studies-international">
+          <div class="case-card-img"><img src="assets/cases/studies-international.webp" alt="Studies International"></div>
+          <div class="case-card-text">
+            <span class="case-tag">CASE STUDY</span>
+            <h3>Studies International: Enterprise-Grade Educational SaaS</h3>
+            <p>Engineered a high-performance, multi-region SaaS platform designed for global scale.</p>
+          </div>
+        </div>
+        <div class="case-card reveal reveal-d4" data-service="automation-architecture" data-case="dice-studio">
+          <div class="case-card-img"><img src="assets/cases/dice-studio.webp" alt="Dice Studio"></div>
+          <div class="case-card-text">
+            <span class="case-tag">CASE STUDY</span>
+            <h3>Dice Studio: 3D Web Experience & Acquisition Engine</h3>
+            <p>Developed an interactive 3D web experience and automated CRM lead acquisition engine.</p>
+          </div>
+        </div>
+        <div class="case-card reveal reveal-d4" data-service="autonomous-operations" data-case="khushi-fitness">
+          <div class="case-card-img"><img src="assets/cases/khushi-fitness.webp" alt="Khushi Fitness"></div>
+          <div class="case-card-text">
+            <span class="case-tag">CASE STUDY</span>
+            <h3>Khushi Fitness: High-ROI Performance Funnels</h3>
+            <p>Built an end-to-end growth funnel and automation system for high-ROI performance.</p>
+          </div>
+        </div>
+        <div class="case-card reveal reveal-d5" data-service="automation-architecture" data-case="vgt-kids">
+          <div class="case-card-img"><img src="assets/cases/vgt-kids.jpg" alt="VGTKIDS"></div>
+          <div class="case-card-text">
+            <span class="case-tag">CASE STUDY</span>
+            <h3>VGTKIDS: Augmented Reality Shopping Experience</h3>
+            <p>Integrated WebAR product visualization directly into the browser to elevate purchase confidence.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <section class="global-cta reveal">
+    <div class="wrap text-center">
+      <h2 class="reveal reveal-d1">AI is here. <span class="highlight-orange">Most will react.</span><br>The few with a plan will <span class="highlight-orange">lead.</span></h2>
+      <h3 class="reveal reveal-d2"><span class="highlight-orange">We build for those few.</span></h3>
+      <br>
+      <div class="cta-actions reveal reveal-d3">
+        <a href="/contact.html" class="btn btn-solid btn-rounded">GET IN TOUCH &nbsp; &gt;</a>
+        <div class="cta-socials">
+          <a href="mailto:info.veritract@gmail.com" aria-label="Email" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          </a>
+          <a href="https://www.linkedin.com/company/veritract-ai/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          </a>
+          <a href="https://www.instagram.com/veritract.ai/" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">VERITRACT.SITE</div>
+        <p class="footer-tag">Automation architecture, intelligent systems, autonomous operations.</p>
+      </div>
+      <nav class="footer-links">
+        <a href="/services.html">Services</a>
+        <a href="/work.html">Work</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+      <div class="footer-meta">
+        <span>© 2026 VeriTract.site</span>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="case-modal" id="caseModal" aria-hidden="true">
+    <div class="case-modal-backdrop" id="caseModalBackdrop"></div>
+    <div class="case-modal-content">
+      <button class="case-modal-close" id="caseModalClose" aria-label="Close modal">&times;</button>
+      <div class="case-modal-hero">
+        <img id="cm-image" src="" alt="">
+        <div class="case-modal-hero-overlay"></div>
+        <div class="case-modal-hero-text">
+          <span class="case-tag" id="cm-industry"></span>
+          <h2 id="cm-title"></h2>
+          <p id="cm-subtitle"></p>
+        </div>
+      </div>
+      <div class="case-modal-body">
+        <div class="case-modal-sidebar">
+          <h4>Solutions</h4>
+          <p id="cm-solutions"></p>
+        </div>
+        <div class="case-modal-main" id="cm-content">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/case-data.js"></script>
+  <script src="assets/main.js"></script>
+</body>
+</html>
+
+
+
