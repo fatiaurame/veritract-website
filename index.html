@@ -37,6 +37,11 @@
   <meta name="twitter:image:alt" content="VeriTract.site — AI Automation Architecture & Autonomous Operations">
   
   <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    /* Critical SVG and button sizing guards */
+    .hero-arrow svg { width: 16px !important; height: 16px !important; }
+    .btn svg, .btn-premium svg { width: 14px !important; height: 14px !important; }
+  </style>
   
   <!-- Load Three.js from CDN (scoped to hero only) -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js" defer></script>
@@ -91,7 +96,7 @@
           </div>
         </div>
         <a href="#intro" class="hero-arrow" aria-label="Scroll down">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 6l6 6-6 6"/></svg>
+          <svg viewBox="0 0 24 24" width="16" height="16" style="width:16px;height:16px;" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 6l6 6-6 6"/></svg>
         </a>
       </div>
     </div>

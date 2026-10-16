@@ -31,21 +31,22 @@ $mimeTypes = @{
 }
 
 $listener = New-Object System.Net.HttpListener
-$prefix = "http://localhost:$Port/"
-$listener.Prefixes.Add($prefix)
+$listener.Prefixes.Add("http://localhost:$Port/")
+$listener.Prefixes.Add("http://127.0.0.1:$Port/")
 
 try {
     $listener.Start()
 } catch {
-    Write-Error "Failed to start listener on $prefix : $_"
+    Write-Error "Failed to start listener on port $Port : $_"
     exit 1
 }
 
-Write-Host "==============================================="
-Write-Host " VeriTract Local Server running at:"
-Write-Host " http://localhost:$Port/"
-Write-Host " Serving files from: $Root"
-Write-Host "==============================================="
+Write-Host "===============================================" -ForegroundColor Cyan
+Write-Host " VeriTract Local Server running at:" -ForegroundColor Green
+Write-Host " 👉 http://localhost:$Port/" -ForegroundColor Yellow
+Write-Host " 👉 http://127.0.0.1:$Port/" -ForegroundColor Yellow
+Write-Host " Serving files from: $Root" -ForegroundColor Gray
+Write-Host "===============================================" -ForegroundColor Cyan
 
 while ($listener.IsListening) {
     try {
@@ -58,10 +59,11 @@ while ($listener.IsListening) {
         $req = $context.Request
         $res = $context.Response
 
-        # CORS headers
+        # CORS & Cache headers
         $res.AddHeader("Access-Control-Allow-Origin", "*")
         $res.AddHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
         $res.AddHeader("Access-Control-Allow-Headers", "Content-Type, Authorization")
+        $res.AddHeader("Cache-Control", "no-cache, no-store, must-revalidate")
 
         if ($req.HttpMethod -eq "OPTIONS") {
             $res.StatusCode = 204
@@ -72,8 +74,14 @@ while ($listener.IsListening) {
         $rawUrl = $req.Url.AbsolutePath
         $decodedUrl = [System.Uri]::UnescapeDataString($rawUrl)
 
-        # Handle API endpoints
-        if ($decodedUrl -eq "/api/health") {
+        # Normalize URL: strip redundant folder prefix if present
+        $cleanUrl = $decodedUrl -replace '^/veritract\.website-main', ''
+        if ([string]::IsNullOrEmpty($cleanUrl) -or $cleanUrl -eq "/") {
+            $cleanUrl = "/index.html"
+        }
+
+        # API Endpoints
+        if ($cleanUrl -eq "/api/health") {
             $res.StatusCode = 200
             $res.ContentType = "application/json; charset=utf-8"
             $json = '{"status":"ok","timestamp":"' + (Get-Date -Format "yyyy-MM-ddTHH:mm:ssZ") + '","mailerConfigured":false}'
@@ -84,7 +92,7 @@ while ($listener.IsListening) {
             continue
         }
 
-        if ($decodedUrl -eq "/api/contact" -and $req.HttpMethod -eq "POST") {
+        if ($cleanUrl -eq "/api/contact" -and $req.HttpMethod -eq "POST") {
             $res.StatusCode = 200
             $res.ContentType = "application/json; charset=utf-8"
             $json = '{"success":true,"message":"Thank you! Your inquiry has been received."}'
@@ -95,31 +103,38 @@ while ($listener.IsListening) {
             continue
         }
 
-        # Resolve local file path
-        $relPath = $decodedUrl.TrimStart('/')
-        if ([string]::IsNullOrEmpty($relPath) -or $relPath -eq "/") {
-            $relPath = "index.html"
-        }
+        # File path resolution
+        $rel = $cleanUrl.TrimStart('/')
+        $candidates = @(
+            (Join-Path $Root ($rel -replace '/', '\')),
+            (Join-Path $Root "veritract.website-main\$($rel -replace '/', '\')"),
+            (Join-Path $PSScriptRoot ($rel -replace '/', '\')),
+            (Join-Path $PSScriptRoot "veritract.website-main\$($rel -replace '/', '\')")
+        )
 
-        $targetFile = Join-Path $Root ($relPath -replace '/', '\')
-
-        # Clean URL fallback: e.g. /about -> about.html
-        if (-not (Test-Path -Path $targetFile -PathType Leaf)) {
-            $htmlCandidate = "$targetFile.html"
+        $targetFile = $null
+        foreach ($c in $candidates) {
+            if (Test-Path -Path $c -PathType Leaf) {
+                $targetFile = $c
+                break
+            }
+            # Clean URL fallback (.html)
+            $htmlCandidate = "$c.html"
             if (Test-Path -Path $htmlCandidate -PathType Leaf) {
                 $targetFile = $htmlCandidate
+                break
+            }
+            # Directory index
+            if (Test-Path -Path $c -PathType Container) {
+                $idx = Join-Path $c "index.html"
+                if (Test-Path -Path $idx -PathType Leaf) {
+                    $targetFile = $idx
+                    break
+                }
             }
         }
 
-        # If it's a directory, look for index.html
-        if (Test-Path -Path $targetFile -PathType Container) {
-            $dirIndex = Join-Path $targetFile "index.html"
-            if (Test-Path -Path $dirIndex -PathType Leaf) {
-                $targetFile = $dirIndex
-            }
-        }
-
-        if (Test-Path -Path $targetFile -PathType Leaf) {
+        if ($targetFile -and (Test-Path -Path $targetFile -PathType Leaf)) {
             $ext = [System.IO.Path]::GetExtension($targetFile).ToLowerInvariant()
             $mime = "application/octet-stream"
             if ($mimeTypes.ContainsKey($ext)) {
@@ -131,11 +146,18 @@ while ($listener.IsListening) {
             $res.ContentType = $mime
             $res.ContentLength64 = $fileBytes.Length
             $res.OutputStream.Write($fileBytes, 0, $fileBytes.Length)
+            Write-Host "[200] $rawUrl -> $([System.IO.Path]::GetFileName($targetFile)) ($mime)" -ForegroundColor Green
         } else {
-            # 404 Handler
-            $notFoundFile = Join-Path $Root "404.html"
+            # 404
+            Write-Host "[404] $rawUrl" -ForegroundColor Red
+            $notFoundCandidates = @(
+                (Join-Path $Root "404.html"),
+                (Join-Path $Root "veritract.website-main\404.html")
+            )
+            $notFoundFile = $notFoundCandidates | Where-Object { Test-Path $_ -PathType Leaf } | Select-Object -First 1
+
             $res.StatusCode = 404
-            if (Test-Path -Path $notFoundFile -PathType Leaf) {
+            if ($notFoundFile) {
                 $fileBytes = [System.IO.File]::ReadAllBytes($notFoundFile)
                 $res.ContentType = "text/html; charset=utf-8"
                 $res.ContentLength64 = $fileBytes.Length
